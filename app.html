@@ -1,0 +1,49 @@
+<!-- <app-child [userName]="userName()"></app-child> -->
+<!-- <h2> User DashBoard</h2>
+@for(user of users; track user){
+  <h1>{{user}}</h1>
+}
+
+@if(islogged){
+  <h1>hi my name is adam</h1>
+}
+
+@switch(role){
+  @case('admin'){<p>Admin</p>}
+  @case('user'){<p>user</p>}
+  @case('representative'){<p>representative</p>}
+  @default{<p>invalid role</p>}
+} -->
+
+stype directive
+<!-- <h1 [ngStyle]="{color:pColor}">hello world</h1> -->
+
+structure directive
+
+<!-- <ul>
+  <li *ngFor="let ele of student">
+    {{ele}}
+  </li>
+</ul>
+<h1 *ngIf="!passStudent">IsPassedOrnot</h1> -->
+<!-- <div *ngIf="user; else secCon">
+  <a href="">logout</a>
+
+</div>
+<ng-template #secCon>
+  <a href="">login</a>
+</ng-template> -->
+
+<h1>Reactive form</h1>
+<form [formGroup]="loginForm" (ngSubmit)="handleProfile()" method="Post">
+
+  <input type="text" formControlName="name" placeholder="enter name">
+  <br><br>
+  <input type="text" formControlName="email" placeholder="enter email">
+  <br><br>
+  <input type="password" formControlName="password" placeholder="enter password">
+  <br><br>
+
+  <button>Submit</button>
+<button (click)="reset()">reset</button>
+</form>
