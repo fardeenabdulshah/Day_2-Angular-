@@ -1,0 +1,126 @@
+<!-- <app-child [userName]="userName()"></app-child> -->
+<!-- <h2> User DashBoard</h2>
+@for(user of users; track user){
+  <h1>{{user}}</h1>
+}
+
+@if(islogged){
+  <h1>hi my name is adam</h1>
+}
+
+@switch(role){
+  @case('admin'){<p>Admin</p>}
+  @case('user'){<p>user</p>}
+  @case('representative'){<p>representative</p>}
+  @default{<p>invalid role</p>}
+} -->
+
+<!-- stype directive -->
+<!-- <h1 [ngStyle]="{color:pColor}">hello world</h1> -->
+
+<!-- structure directive -->
+
+<!-- <ul>
+  <li *ngFor="let ele of student">
+    {{ele}}
+  </li>
+</ul>
+<h1 *ngIf="!passStudent">IsPassedOrnot</h1> -->
+<!-- <div *ngIf="user; else secCon">
+  <a href="">logout</a>
+
+</div>
+<ng-template #secCon>
+  <a href="">login</a>
+</ng-template> -->
+
+<!-- Reactive form -->
+<!-- <h1>Reactive form</h1>
+<form [formGroup]="loginForm" (ngSubmit)="handleProfile()" method="Post">
+
+  <input type="text" formControlName="name" placeholder="enter name">
+  <br><br>
+  <input type="text" formControlName="email" placeholder="enter email">
+  <br><br>
+  <input type="password" formControlName="password" placeholder="enter password">
+  <br><br>
+
+  <button>Submit</button>
+<button (click)="reset()">reset</button>
+</form> -->
+
+<!-- <form [formGroup]="loginForm" (ngSubmit)="handleProfile()">
+
+  <input type="text" formControlName="name" placeholder="enter name">
+  <div *ngIf="name?.invalid && name?.touched">
+    <small *ngIf="name?.errors?.['required']">Name is required</small>
+  </div>
+
+  <br><br>
+
+  <input type="text" formControlName="email" placeholder="enter email">
+  <div *ngIf="email?.invalid && email?.touched">
+    <small *ngIf="email?.errors?.['required']">Email is required</small>
+    <small *ngIf="email?.errors?.['email']">Invalid email</small>
+  </div>
+@if (email?.invalid && email?.touched) {
+
+  @if (email?.errors?.['required']) {
+    <small>Email is required</small>
+  }
+  <br><br>
+
+  <input type="password" formControlName="password" placeholder="enter password">
+  <div *ngIf="password?.invalid && password?.touched">
+    <small *ngIf="password?.errors?.['required']">Password is required</small>
+    <small *ngIf="password?.errors?.['minlength']">Min 6 characters</small>
+    <small *ngIf="password?.errors?.['maxlength']">Max 50 characters</small>
+  </div> 
+
+
+  <br><br>
+
+  <button [disabled]="loginForm.invalid">Submit</button>
+  <button type="button" (click)="reset()">Reset</button>
+
+</form> -->
+
+<!-- template driven form -->
+
+<!-- <h1>Template Driven Form</h1>
+
+<form #userForm="ngForm" (ngSubmit)="addDetails(userForm.value)">
+  <input type="text" placeholder="enter name" name="name" ngModel>
+  <br><br>
+  <input type="password" placeholder="enter password" name="password" ngModel>
+  <br><br>
+  <select name="gender" ngModel>
+    <option value="">Select Gender</option>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
+
+  <br><br>
+
+  <input type="range" min="0" max="20" name="range" ngModel>
+
+  <br><br>
+
+  <button>Add User</button>
+
+</form> -->
+
+ <!-- <h2>Two Way Binding Without ngModel</h2>
+<input [value]="name" (input)="name = $event.target.value">
+
+<p>{{ name }}</p>  -->
+
+<!-- <input [(ngModel)]="name">
+<p>{{name}}</p>  -->
+
+<!-- <div appCustomdirective>
+  <h2> Welcome to uxtrendz</h2>
+</div> -->
+
+<app-loginform></app-loginform>
+

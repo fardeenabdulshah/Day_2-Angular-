@@ -1,0 +1,95 @@
+<h1>Registration Form</h1>
+
+<form [formGroup]="loginform" (ngSubmit)="submit()" class="loginform" method="post">
+
+  <div class="form-group">
+    <label for="firstname">First Name:</label>
+    <input type="text" id="firstname" formControlName="firstname" placeholder="Enter your First Name">
+
+    @if (firstname?.invalid && firstname?.touched) {
+      @if (firstname?.errors?.['required']) {
+        <span style="color: red">FirstName is required</span>
+      }
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="lastname">Last Name:</label>
+    <input type="text" id="lastname" formControlName="lastname" placeholder="Enter your Last Name">
+  </div>
+
+  <div class="form-group">
+    <label for="phonenumber">Phone No:</label>
+    <input type="tel" id="phonenumber" formControlName="mobile" placeholder="Enter your Phone Number">
+
+    @if (mobile?.invalid && mobile?.touched) {
+      @if (mobile?.errors?.['required']) {
+        <span style="color: red">PhoneNo. is required</span>
+      }
+      @if (mobile?.errors?.['minlength']) {
+        <span style="color: red">Minimum 8 digits required</span>
+      }
+      @if (mobile?.errors?.['maxlength']) {
+        <span style="color: red">Maximum 15 digits allowed</span>
+      }
+      @if (mobile?.errors?.['pattern']) {
+        <span style="color: red">Only numbers allowed</span>
+      }
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="mail">Email:</label>
+    <input type="email" id="mail" formControlName="email" placeholder="Enter your Email">
+
+    @if (email?.invalid && email?.touched) {
+      @if (email?.errors?.['required']) {
+        <span style="color: red">Email is required</span>
+      }
+      @if (email?.errors?.['email']) {
+        <span style="color: red">Invalid email format</span>
+      }
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="image">Upload Image:</label>
+    <input type="file" id="image" name="image" accept="image/*">
+  </div>
+
+  <div class="form-group">
+    <p>Select your gender</p>
+    <input type="radio" value="male" formControlName="gender">
+    <label>Male</label>
+
+    <input type="radio" value="female" formControlName="gender">
+    <label>Female</label>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input type="password" id="password" formControlName="Password" placeholder="Enter your Password">
+
+    @if (Password?.invalid && Password?.touched) {
+      @if (Password?.errors?.['required']) {
+        <span style="color: red">Password is required</span>
+      }
+    }
+  </div>
+
+  <div class="form-buttons">
+    <button type="submit">Submit</button>
+    <button type="button" (click)="reset()">Reset</button>
+  </div>
+
+  <p>
+    @if (isRegisterMode) {
+      Already registered? 
+      <a (click)="toggleMode()">Login here</a>
+    } @else {
+      Not registered? 
+      <a (click)="toggleMode()">Register here</a>
+    }
+  </p>
+
+</form>
