@@ -7,10 +7,18 @@ import { Password } from '@mui/icons-material';
 import { FormsModule, NgForm } from '@angular/forms';
 import {Customdirective} from './appdirectives/customdirective'
 import {Loginform} from './loginform/loginform'
+import {Pipes} from './pipes/pipes';
+//import { Product } from './services/product';
+import { Product } from './http/product';
+import {RxjsBasic} from './rxjs-basic/rxjs-basic'
+import { Subscription } from 'rxjs';
+import{List} from './list/list'
+import {ListItem} from './list-item/list-item'
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,Child,CommonModule,ReactiveFormsModule,FormsModule,Customdirective,Loginform,RouterLink],
+  imports: [ListItem,List,RouterOutlet,RxjsBasic,Pipes,Child,CommonModule,ReactiveFormsModule,FormsModule,Customdirective,Loginform,RouterLink],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -101,8 +109,36 @@ export class App {
 //   // two way data binding
 //   //name="sam"
 
+productList:any
+
+ subscription = new Subscription()
+constructor(private productservices:Product){
+
+}
+// ngOnInit(){
+//   this.subscription.add(
+//   this.productservices.getProductList().subscribe((data:any)=>{
+//     if(data) {
+//       this.productList = data.products
+//       console.log(data.products)
+//     }
 
 
+//   })
+// )
+// }
+// getproduct(){
+ 
+
+// }
+
+getProductList() {
+  return this.productList
+}
+
+ ngOnDestroy(){
+    this.subscription.unsubscribe
+  }
 }
 
 
