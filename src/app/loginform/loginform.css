@@ -1,22 +1,22 @@
+
 h1{
-    text-align: center;
-    font-family:cursive
+  text-align: center;
+  font-family: cursive;
 }
-.loginform {
+
+.loginform{
   position: relative;
-  width: 350px;
-  margin: 40px auto;
-  padding: 20px;
+  width:350px;
+  margin:40px auto;
+  padding:20px;
   border-radius: 10px;
   box-shadow: 0 0 10px black;
   font-style: italic;
-  font-variant-caps: all-small-caps;
-  color:#1a1a2e;
-  background: rgba(255,255,255,0.85);
-  
-  
+   font-variant-caps: all-small-caps;
+color: #1a1a2e;
+background: rgba(255,255,255,0.85);
+overflow: hidden;
 }
-
 
 .loginform::before {
   content: "";
@@ -24,46 +24,61 @@ h1{
   inset: 0;
   background: url('image.jpg') no-repeat center/cover;
   opacity: 0.3;
- 
+  
 }
-
-
-
-
 .loginform * {
   position: relative;
-  z-index: 1;
 }
-
-
 .form-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
 }
-
 .form-group label {
   margin-bottom: 5px;
   font-weight: bold;
+  
 }
-
-.form-group input {
+.form-group input,input {
   padding: 8px;
   border: 1px solid black;
   border-radius: 5px;
-  color:navy;
+  color: navy;
+  margin-bottom: 8px;
+}
+input:focus {
+  outline: none;
+  border-color:white;
+}
+input[type="radio"] {
+  width: auto;
+  margin-right: 5px;
 }
 
 .form-buttons {
   display: flex;
   justify-content: space-between;
 }
-
 button {
   padding: 8px 15px;
-  
   background: red;
   color: white;
   border-radius: 5px;
   cursor: pointer;
+  border: none;
 }
+button:hover {
+  background: darkred;
+}
+button:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+.radio-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* span {
+  font-size: 12px;
+} */

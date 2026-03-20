@@ -1,97 +1,151 @@
 <h1>Registration Form</h1>
 
-<form [formGroup]="loginform" (ngSubmit)="submit()" class="loginform" method="post">
+<form (ngSubmit)="submit()" class="loginform">
+  <p>Step {{currentstep}} of 3</p>
+  @if(currentstep === 1){
+  <div [formGroup]="loginform">
 
-  <div class="form-group">
-    <label for="firstname">First Name:</label>
-    <input type="text" id="firstname" formControlName="firstname" placeholder="Enter your First Name">
-
-    @if (firstname?.invalid && firstname?.touched) {
-      @if (firstname?.errors?.['required']) {
-        <span style="color: red">FirstName is required</span>
+    <label>First Name: </label>
+    <input type="text" formControlName="firstname" placeholder="First Name">
+    @if (loginform.get('firstname')?.touched && loginform.get('firstname')?.invalid) {
+      <span style="color:red">First Name is required</span>
+    }
+<br>
+    <label>Last Name: </label>
+    <input type="text" formControlName="lastname" placeholder="Last Name">
+<br>
+    <label>Mobile: </label>
+    <input type="tel" formControlName="mobile" placeholder="Mobile">
+    @if (loginform.get('mobile')?.touched && loginform.get('mobile')?.invalid) {
+      @if (loginform.get('mobile')?.errors?.['required']) {
+        <span style="color:red">Mobile is required</span>
+      }
+      @if (loginform.get('mobile')?.errors?.['minlength']) {
+        <span style="color:red">Minimum 8 digits required</span>
+      }
+      @if (loginform.get('mobile')?.errors?.['maxlength']) {
+        <span style="color:red">Maximum 15 digits allowed</span>
+      }
+  @if (loginform.get('mobile')?.errors?.['pattern']) {
+        <span style="color:red">Only numbers allowed</span>
       }
     }
-  </div>
-
-  <div class="form-group">
-    <label for="lastname">Last Name:</label>
-    <input type="text" id="lastname" formControlName="lastname" placeholder="Enter your Last Name">
-  </div>
-
-  <div class="form-group">
-    <label for="phonenumber">Phone No:</label>
-    <input type="tel" id="phonenumber" formControlName="mobile" placeholder="Enter your Phone Number">
-
-    @if (mobile?.invalid && mobile?.touched) {
-      @if (mobile?.errors?.['required']) {
-        <span style="color: red">PhoneNo. is required</span>
-      }
-      @if (mobile?.errors?.['minlength']) {
-        <span style="color: red">Minimum 8 digits required</span>
-      }
-      @if (mobile?.errors?.['maxlength']) {
-        <span style="color: red">Maximum 15 digits allowed</span>
-      }
-      @if (mobile?.errors?.['pattern']) {
-        <span style="color: red">Only numbers allowed</span>
+<br>
+    <label>Email: </label>
+    <input type="email" formControlName="email" placeholder="Email">
+    @if (loginform.get('email')?.touched && loginform.get('email')?.invalid) {
+      @if (loginform.get('email')?.errors?.['required']) {
+        <span style="color:red">Email is required</span>
+  }
+      @if (loginform.get('email')?.errors?.['email']) {
+        <span style="color:red">Invalid email format</span>
       }
     }
+<br>
+    <label>Upload Image: </label>
+    <input type="file">
+<br>
+    <label>Gender: </label>
+    <div class="radio-group">
+    <input type="radio" value="male" formControlName="gender"> Male
+    <input type="radio" value="female" formControlName="gender"> Female
+    </div>
+<br>
+    <label>Password</label>
+    <input type="password" formControlName="Password" placeholder="Password">
+    @if (loginform.get('Password')?.touched && loginform.get('Password')?.invalid) {
+      <span style="color:red">Password is required</span>
+    }
+
   </div>
+  }
+  @if(currentstep === 2){
+  <div [formGroup]="collegedetails">
 
-  <div class="form-group">
-    <label for="mail">Email:</label>
-    <input type="email" id="mail" formControlName="email" placeholder="Enter your Email">
+    <label>College Name: </label>
+    <input type="text" formControlName="collegename" placeholder="College Name">
+    @if (collegedetails.get('collegename')?.touched && collegedetails.get('collegename')?.invalid) {
+      <span style="color:red">College Name is required</span>
+    }
+<br>
+    <label>State: </label>
+    <input type="text" formControlName="collegestate" placeholder="State">
+    @if (collegedetails.get('collegestate')?.touched && collegedetails.get('collegestate')?.invalid) {
+      <span style="color:red">State is required</span>
+    }
+    <br>
+    <label>College ID: </label>
+    <input type="text" formControlName="collegeId" placeholder="College ID">
+ @if (collegedetails.get('collegeId')?.touched && collegedetails.get('collegeId')?.invalid) {
+      <span style="color:red">College ID is required</span>
+    }
+<br>
+    <label>CGPA: </label>
+    <input type="text" formControlName="CGPA" placeholder="CGPA">
+    @if (collegedetails.get('CGPA')?.touched && collegedetails.get('CGPA')?.invalid) {
 
-    @if (email?.invalid && email?.touched) {
-      @if (email?.errors?.['required']) {
-        <span style="color: red">Email is required</span>
+      @if (collegedetails.get('CGPA')?.errors?.['required']) {
+        <span style="color:red">CGPA is required</span>
       }
-      @if (email?.errors?.['email']) {
-        <span style="color: red">Invalid email format</span>
+
+      @if (collegedetails.get('CGPA')?.errors?.['min']) {
+        <span style="color:red">Minimum CGPA is 0</span>
+      }
+  @if (collegedetails.get('CGPA')?.errors?.['max']) {
+        <span style="color:red">Maximum CGPA is 10</span>
+      }
+ @if (collegedetails.get('CGPA')?.errors?.['pattern']) {
+        <span style="color:red">Invalid CGPA format</span>
       }
     }
+
   </div>
+  }
 
-  
+  @if(currentstep === 3){
+  <div [formGroup]="skills">
 
-  <div class="form-group">
-    <label for="image">Upload Image:</label>
-    <input type="file" id="image" name="image" accept="image/*">
-  </div>
-
-  <div class="form-group">
-    <p>Select your gender</p>
-    <input type="radio" value="male" formControlName="gender">
-    <label>Male</label>
-
-    <input type="radio" value="female" formControlName="gender">
-    <label>Female</label>
-  </div>
-
-  <div class="form-group">
-    <label for="password">Password:</label>
-    <input type="password" id="password" formControlName="Password" placeholder="Enter your Password">
-
-    @if (Password?.invalid && Password?.touched) {
-      @if (Password?.errors?.['required']) {
-        <span style="color: red">Password is required</span>
-      }
+    <label>Primary Skill: </label>
+    <input type="text" formControlName="pimaryskill" placeholder="Primary Skill">
+    @if (skills.get('pimaryskill')?.touched && skills.get('pimaryskill')?.invalid) {
+      <span style="color:red">Primary skill is required</span>
     }
+<br>
+    <label>Secondary Skill: </label>
+    <input type="text" formControlName="secondryskill" placeholder="Secondary Skill">
+<br>
+    <label>Experience</label>
+    <input type="text" formControlName="experience" placeholder="Experience">
+    @if (skills.get('experience')?.touched && skills.get('experience')?.invalid) {
+      <span style="color:red">Experience is required</span>
+    }
+<br>
+    <label>Project: </label>
+    <input type="text" formControlName="project" placeholder="Project">
+<br>
+    <label>Certifications: </label>
+    <input type="text" formControlName="certifications" placeholder="Certifications">
+<br>
+    <label>Preferred Role: </label>
+    <input type="text" formControlName="preferredrole" placeholder="Preferred Role">
+    @if (skills.get('preferredrole')?.touched && skills.get('preferredrole')?.invalid) {
+      <span style="color:red">Preferred role is required</span>
+    }
+
   </div>
+  }
 
   <div class="form-buttons">
-    <button type="submit">Submit</button>
-    <button type="button" (click)="reset()">Reset</button>
-  </div>
-
-  <p>
-    @if (isRegisterMode) {
-      Already registered? 
-      <a (click)="toggleMode()">Login here</a>
-    } @else {
-      Not registered? 
-      <a (click)="toggleMode()">Register here</a>
+@if(currentstep > 1){
+      <button type="button" (click)="prevstep()">Back</button>
+    }@if(currentstep < 3){
+      <button type="button" (click)="nextstep()">Next</button>
     }
-  </p>
+    @if(currentstep === 3){
+      <button type="submit">Submit</button>
+    }
+    <button type="button" (click)="reset()">Reset</button>
+
+  </div>
 
 </form>
