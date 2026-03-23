@@ -1,5 +1,11 @@
 <h1>Registration Form</h1>
 
+<div class="stepper">
+  <button type="button" (click)="goToStep(1)" [class.active]="currentstep === 1">1</button>
+  <button type="button" (click)="goToStep(2)" [class.active]="currentstep === 2">2</button>
+  <button type="button" (click)="goToStep(3)" [class.active]="currentstep === 3">3</button>
+</div>
+
 <form (ngSubmit)="submit()" class="loginform">
   <p>Step {{currentstep}} of 3</p>
   @if(currentstep === 1){

@@ -29,11 +29,7 @@ overflow: hidden;
 .loginform * {
   position: relative;
 }
-.form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
-}
+
 .form-group label {
   margin-bottom: 5px;
   font-weight: bold;
@@ -82,3 +78,63 @@ button:disabled {
 /* span {
   font-size: 12px;
 } */
+
+/* Step Buttons */
+.stepper {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.stepper button {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: gray;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.stepper button.active {
+  background: red;
+}
+
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.loginform label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+
+ .loginform input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  box-sizing: border-box;
+}
+
+
+.radio-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
