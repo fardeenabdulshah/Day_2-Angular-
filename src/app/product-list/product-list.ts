@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { ApiService } from '../api';
 import { FavouriteService } from '../favourite';
 import { ProductCardComponent } from '../product-card/product-card';
 import { CategoryFilterComponent } from '../category-filter/category-filter';
 import { ItemsPerPageComponent } from '../items-per-page/items-per-page';
-import { PaginationComponent } from '../pagination/pagination';
+import { PaginationComponen } from '../pagination/pagination';
 import { Product } from '../models/product.model';
 
 @Component({
@@ -20,75 +20,10 @@ import { Product } from '../models/product.model';
     ProductCardComponent,
     CategoryFilterComponent,
     ItemsPerPageComponent,
-    PaginationComponent
+    PaginationComponen
   ],
-  template: `
-    <div class="product-list-container">
-      <section class="search-section">
-        <input 
-          type="text"
-          [(ngModel)]="searchQuery"
-          (ngModelChange)="onSearchChange()"
-          placeholder="Search product by title..."
-          class="search-input"
-        />
-      </section>
-
-      <app-category-filter (categorySelected)="onCategorySelected($event)"></app-category-filter>
-      <app-items-per-page [itemsPerPage]="offset" (itemsPerPageChange)="onItemsPerPageChange($event)"></app-items-per-page>
-
-      <div class="product-grid">
-        <app-product-card 
-          *ngFor="let product of products"
-          [product]="product"
-          (updateCart)="refreshCart()">
-        </app-product-card>
-      </div>
-
-      <app-pagination 
-        [totalPages]="totalPages"
-        [currentPage]="currentPage"
-        (pageChange)="goToPage($event)">
-      </app-pagination>
-
-      <div id="scrollTrigger"></div>
-    </div>
-  `,
-  styles: [`
-    .product-list-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .search-section {
-      padding: 20px;
-      text-align: center;
-    }
-    .search-input {
-      width: 300px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      padding: 20px;
-    }
-    @media screen and (max-width: 900px) {
-      .product-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media screen and (max-width: 500px) {
-      .product-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    #scrollTrigger {
-      height: 20px;
-    }
-  `]
+  templateUrl: './product-list.html',
+  styleUrl: './product-list.css'
 })
 export class ProductListComponent implements OnInit, OnDestroy {
   products: Product[] = [];
@@ -102,7 +37,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   private pageCache: { [key: string]: Product[] } = {};
   private searchSubject = new Subject<string>();
   private scrollTrigger: IntersectionObserver | null = null;
-
+subscription$ = new Subscription()
   constructor(
     private apiService: ApiService,
     private favouriteService: FavouriteService
@@ -122,6 +57,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.scrollTrigger) {
       this.scrollTrigger.disconnect();
+      this.subscription$.unsubscribe()
     }
   }
 
@@ -170,9 +106,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
     const pageHeight = cardHeight * this.offset;
     const visiblePage = Math.floor(scrollTop / pageHeight) + 1;
     
-    if (visiblePage !== this.currentPage && visiblePage <= this.totalPages) {
-      this.currentPage = visiblePage;
-    }
+    // if (visiblePage !== this.currentPage && visiblePage <= this.totalPages) {
+    //   this.currentPage = visiblePage;
+    // }
   }
 
   loadPage(page: number, append: boolean = false): void {
@@ -182,7 +118,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       const cacheKey = `${page}_${this.offset}`;
       if (this.pageCache[cacheKey]) {
         this.products = this.pageCache[cacheKey];
-        return;
+        //return;
       }
     }
 

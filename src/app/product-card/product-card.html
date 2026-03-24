@@ -1,1 +1,12 @@
-<p>product-card works!</p>
+<div class="product-card" (click)="onCardClick()">
+      <img [src]="product.thumbnail" class="product-image" [alt]="product.title">
+      <h3>{{ product.title }}</h3>
+      <p>{{product.price }}</p>
+      <p>⭐ {{ product.rating }}</p>
+
+      <div class="cart-controls">
+        <button class="minus" (click)="onDecrease($event)">-</button>
+        <span class="qty">{{ qty }}</span>
+        <button class="plus" (click)="onIncrease($event)">+</button>
+      </div>
+    </div>

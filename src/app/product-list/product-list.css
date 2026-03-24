@@ -1,0 +1,33 @@
+.product-list-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .search-section {
+      padding: 20px;
+      text-align: center;
+    }
+    .search-input {
+      width: 300px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding: 20px;
+    }
+    @media screen and (max-width: 900px) {
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media screen and (max-width: 500px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    #scrollTrigger {
+      height: 20px;
+    }

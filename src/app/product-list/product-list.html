@@ -1,1 +1,30 @@
-<p>product-list works!</p>
+<div class="product-list-container">
+      <section class="search-section">
+        <input 
+          type="text"
+          [(ngModel)]="searchQuery"
+          (ngModelChange)="onSearchChange()"
+          placeholder="Search product by title..."
+          class="search-input"
+        />
+      </section>
+
+      <app-category-filter (categorySelected)="onCategorySelected($event)"></app-category-filter>
+      <app-items-per-page [itemsPerPage]="offset" (itemsPerPageChange)="onItemsPerPageChange($event)"></app-items-per-page>
+
+      <div class="product-grid">
+        <app-product-card 
+          *ngFor="let product of products"
+          [product]="product"
+          (updateCart)="refreshCart()">
+        </app-product-card>
+      </div>
+
+      <app-pagination 
+        [totalPages]="totalPages"
+        [currentPage]="currentPage"
+        (pageChange)="goToPage($event)">
+      </app-pagination>
+
+      <div id="scrollTrigger"></div>
+    </div>

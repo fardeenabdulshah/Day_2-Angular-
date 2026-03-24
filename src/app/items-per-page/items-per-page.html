@@ -1,1 +1,9 @@
-<p>items-per-page works!</p>
+<section class="items-per-page">
+      <input 
+        type="number"
+        [(ngModel)]="itemsPerPage"
+        (ngModelChange)="onChange()"
+        min="1"
+        class="items-input"
+      >
+    </section>

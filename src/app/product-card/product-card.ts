@@ -8,61 +8,8 @@ import { FavouriteService } from '../favourite';
   selector: 'app-product-card',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  template: `
-    <div class="product-card" (click)="onCardClick()">
-      <img [src]="product.thumbnail" class="product-image" [alt]="product.title">
-      <h3>{{ product.title }}</h3>
-      <p>{{product.price }}</p>
-      <p>⭐ {{ product.rating }}</p>
-
-      <div class="cart-controls">
-        <button class="minus" (click)="onDecrease($event)">-</button>
-        <span class="qty">{{ qty }}</span>
-        <button class="plus" (click)="onIncrease($event)">+</button>
-      </div>
-    </div>
-  `,
-  styles: [`
-    .product-card {
-      background: white;
-      border-radius: 10px;
-      padding: 15px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .product-card:hover {
-      transform: translateY(-5px);
-    }
-    .product-image {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 5px;
-    }
-    .product-card h3 {
-      margin-top: 10px;
-      font-size: 18px;
-    }
-    .product-card p {
-      margin-top: 5px;
-    }
-    .cart-controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 10px;
-      justify-content: center;
-    }
-    .cart-controls button {
-      padding: 5px 10px;
-      cursor: pointer;
-    }
-    .qty {
-      font-weight: bold;
-    }
-  `]
+  templateUrl:'./product-card.html',
+  styleUrl:'./product-card.css'
 })
 export class ProductCardComponent {
   @Input() product!: Product;

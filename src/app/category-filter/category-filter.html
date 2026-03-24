@@ -1,1 +1,8 @@
-<p>category-filter works!</p>
+<section class="category-section">
+      <select id="category" (change)="onCategoryChange($event)">
+        <option value="">All Categories</option>
+        <option *ngFor="let cat of categories" [value]="cat.slug">
+          {{ cat.name }}
+        </option>
+      </select>
+    </section>

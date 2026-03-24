@@ -19,3 +19,5 @@ export interface FavouriteItem {
   id: number;
   qty: number;
 }
+
+export type Category = string
