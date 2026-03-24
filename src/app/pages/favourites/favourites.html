@@ -1,0 +1,6 @@
+<div class="product-grid">
+  <div *ngFor="let p of products" class="product-card">
+    <h3>{{ p.title }}</h3>
+    <p>Qty: {{ fav.getQty(p.id) }}</p>
+  </div>
+</div>

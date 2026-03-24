@@ -1,0 +1,28 @@
+<input type="text" placeholder="Search" (input)="search($event)" />
+
+<div class="product-grid">
+
+  @for (p of products; track p.id) {
+    <div class="product-card" [routerLink]="['/product', p.id]">
+
+      <img [src]="p.thumbnail" />
+      <h3>{{ p.title }}</h3>
+      <p>₹ {{ p.price }}</p>
+      <p>⭐ {{ p.rating }}</p>
+
+      <div>
+        <button (click)="fav.decrease(p.id); $event.stopPropagation()">-</button>
+        <span>{{ fav.getQty(p.id) }}</span>
+        <button (click)="fav.add(p.id); $event.stopPropagation()">+</button>
+      </div>
+
+    </div>
+  }
+
+</div>
+
+<app-pagination
+  [total]="totalPages"
+  [current]="currentPage"
+  (pageChange)="loadPage($event)">
+</app-pagination>

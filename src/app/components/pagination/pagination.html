@@ -1,0 +1,8 @@
+<button 
+  *ngFor="let p of [].constructor(total); let i = index"
+  (click)="change(i+1)"
+  [class.active]="(i+1) === current">
+
+  {{ i+1 }}
+
+</button>
