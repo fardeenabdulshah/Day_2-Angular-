@@ -5,58 +5,69 @@
   <button type="button" (click)="goToStep(2)" [class.active]="currentstep === 2">2</button>
   <button type="button" (click)="goToStep(3)" [class.active]="currentstep === 3">3</button>
 </div>
-
-<form (ngSubmit)="submit()" class="loginform">
+<form (ngSubmit)="submit()" [formGroup]="loginform" class="loginform">
   <p>Step {{currentstep}} of 3</p>
-  @if(currentstep === 1){
-  <div [formGroup]="loginform">
 
+  @if(currentstep === 1){
+  <div>
     <label>First Name: </label>
     <input type="text" formControlName="firstname" placeholder="First Name">
     @if (loginform.get('firstname')?.touched && loginform.get('firstname')?.invalid) {
       <span style="color:red">First Name is required</span>
     }
-<br>
+    <br>
     <label>Last Name: </label>
     <input type="text" formControlName="lastname" placeholder="Last Name">
-<br>
+
+    <br>
+
     <label>Mobile: </label>
     <input type="tel" formControlName="mobile" placeholder="Mobile">
     @if (loginform.get('mobile')?.touched && loginform.get('mobile')?.invalid) {
-      @if (loginform.get('mobile')?.errors?.['required']) {
-        <span style="color:red">Mobile is required</span>
-      }
-      @if (loginform.get('mobile')?.errors?.['minlength']) {
-        <span style="color:red">Minimum 8 digits required</span>
-      }
-      @if (loginform.get('mobile')?.errors?.['maxlength']) {
-        <span style="color:red">Maximum 15 digits allowed</span>
-      }
-  @if (loginform.get('mobile')?.errors?.['pattern']) {
-        <span style="color:red">Only numbers allowed</span>
-      }
+      <span style="color:red">Invalid Mobile</span>
     }
-<br>
-    <label>Email: </label>
-    <input type="email" formControlName="email" placeholder="Email">
-    @if (loginform.get('email')?.touched && loginform.get('email')?.invalid) {
-      @if (loginform.get('email')?.errors?.['required']) {
-        <span style="color:red">Email is required</span>
-  }
-      @if (loginform.get('email')?.errors?.['email']) {
-        <span style="color:red">Invalid email format</span>
+
+    <br>
+
+    <label>Emails:</label>
+
+    <div formArrayName="emails">
+      @for (e of emails.controls; track $index; let i = $index) {
+        <div>
+          <input [formControlName]="i" placeholder="Email">
+          @if (emails.at(i).touched && emails.at(i).invalid) {
+            @if (emails.at(i).errors?.['required']) {
+              <span style="color:red">Email is required</span>
+            }
+            @if (emails.at(i).errors?.['email']) {
+              <span style="color:red">Invalid email format</span>
+            }
+          }
+          @if(i>0){
+<button type="button" (click)="removeEmail(i)">X</button>
+          }
+          
+        </div>
       }
-    }
-<br>
+    </div>
+
+    <button type="button" (click)="addEmail()">Add Email</button>
+
+    <br>
+
     <label>Upload Image: </label>
     <input type="file">
-<br>
+
+    <br>
+
     <label>Gender: </label>
     <div class="radio-group">
-    <input type="radio" value="male" formControlName="gender"> Male
-    <input type="radio" value="female" formControlName="gender"> Female
+      <input type="radio" value="male" formControlName="gender"> Male
+      <input type="radio" value="female" formControlName="gender"> Female
     </div>
-<br>
+
+    <br>
+
     <label>Password</label>
     <input type="password" formControlName="Password" placeholder="Password">
     @if (loginform.get('Password')?.touched && loginform.get('Password')?.invalid) {
@@ -65,6 +76,7 @@
 
   </div>
   }
+
   @if(currentstep === 2){
   <div [formGroup]="collegedetails">
 
@@ -73,36 +85,29 @@
     @if (collegedetails.get('collegename')?.touched && collegedetails.get('collegename')?.invalid) {
       <span style="color:red">College Name is required</span>
     }
-<br>
+
+    <br>
+
     <label>State: </label>
     <input type="text" formControlName="collegestate" placeholder="State">
     @if (collegedetails.get('collegestate')?.touched && collegedetails.get('collegestate')?.invalid) {
       <span style="color:red">State is required</span>
     }
+
     <br>
+
     <label>College ID: </label>
     <input type="text" formControlName="collegeId" placeholder="College ID">
- @if (collegedetails.get('collegeId')?.touched && collegedetails.get('collegeId')?.invalid) {
+    @if (collegedetails.get('collegeId')?.touched && collegedetails.get('collegeId')?.invalid) {
       <span style="color:red">College ID is required</span>
     }
-<br>
+
+    <br>
+
     <label>CGPA: </label>
     <input type="text" formControlName="CGPA" placeholder="CGPA">
     @if (collegedetails.get('CGPA')?.touched && collegedetails.get('CGPA')?.invalid) {
-
-      @if (collegedetails.get('CGPA')?.errors?.['required']) {
-        <span style="color:red">CGPA is required</span>
-      }
-
-      @if (collegedetails.get('CGPA')?.errors?.['min']) {
-        <span style="color:red">Minimum CGPA is 0</span>
-      }
-  @if (collegedetails.get('CGPA')?.errors?.['max']) {
-        <span style="color:red">Maximum CGPA is 10</span>
-      }
- @if (collegedetails.get('CGPA')?.errors?.['pattern']) {
-        <span style="color:red">Invalid CGPA format</span>
-      }
+      <span style="color:red">Invalid CGPA</span>
     }
 
   </div>
@@ -116,42 +121,78 @@
     @if (skills.get('pimaryskill')?.touched && skills.get('pimaryskill')?.invalid) {
       <span style="color:red">Primary skill is required</span>
     }
-<br>
+
+    <br>
+
     <label>Secondary Skill: </label>
     <input type="text" formControlName="secondryskill" placeholder="Secondary Skill">
-<br>
+
+    <br>
+
     <label>Experience</label>
     <input type="text" formControlName="experience" placeholder="Experience">
     @if (skills.get('experience')?.touched && skills.get('experience')?.invalid) {
       <span style="color:red">Experience is required</span>
     }
-<br>
+
+    <br>
+
     <label>Project: </label>
     <input type="text" formControlName="project" placeholder="Project">
-<br>
+
+    <br>
+
     <label>Certifications: </label>
     <input type="text" formControlName="certifications" placeholder="Certifications">
-<br>
+
+    <br>
+
     <label>Preferred Role: </label>
     <input type="text" formControlName="preferredrole" placeholder="Preferred Role">
     @if (skills.get('preferredrole')?.touched && skills.get('preferredrole')?.invalid) {
       <span style="color:red">Preferred role is required</span>
     }
 
+    <br>
+
+    <label>Addresses:</label>
+
+    <div formArrayName="addresses">
+      @for (a of addresses.controls; track $index; let i = $index) {
+        <div>
+          <input [formControlName]="i" placeholder="Address">
+          @if (addresses.at(i).touched && addresses.at(i).invalid) {
+            <span style="color:red">Address is required</span>
+          }
+          @if(i>0){
+<button type="button" (click)="removeAddress(i)">X</button>
+          }
+          
+        </div>
+      }
+    </div>
+    <button type="button" (click)="addAddress()">Add Address</button>
+
   </div>
   }
 
   <div class="form-buttons">
-@if(currentstep > 1){
+    @if(currentstep > 1){
       <button type="button" (click)="prevstep()">Back</button>
-    }@if(currentstep < 3){
+    }
+    @if(currentstep < 3){
       <button type="button" (click)="nextstep()">Next</button>
     }
     @if(currentstep === 3){
       <button type="submit">Submit</button>
     }
     <button type="button" (click)="reset()">Reset</button>
-
   </div>
 
 </form>
+
+<div class="view-btn">
+  <button type="button" routerLink="/users">
+    View All Users
+  </button>
+</div>

@@ -138,3 +138,21 @@ button:disabled {
   justify-content: space-between;
   margin-top: 15px;
 }
+.view-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.view-btn button {
+  padding: 10px 20px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.view-btn button:hover {
+  background: darkred;
+}

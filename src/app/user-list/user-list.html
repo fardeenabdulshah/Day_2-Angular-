@@ -1,0 +1,16 @@
+<h2 class="title">User List</h2>
+
+<div class="top-bar">
+  <button routerLink="/">Add Details</button>
+</div>
+@for (user of users; track $index) {
+  <div class="card">
+    <p><b>Name:</b> {{user.user.firstname}}</p>
+    <p><b>Email:</b></p>
+    @for (e of user.user.emails; track $index) {
+      <p>{{e}}</p>
+    }
+    <button class="delete" (click)="deleteUser($index)">Delete</button>
+  </div>
+
+}

@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../userservices/user';
+import { FormArray } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-loginform',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, RouterModule],
   templateUrl: './loginform.html',
   styleUrls: ['./loginform.css'],
 })
@@ -26,18 +28,20 @@ export class Loginform implements OnInit {
     this.loginform = this.fb.group({
       firstname: ['', Validators.required],
       lastname: [''],
-      mobile: ['', [Validators.required,Validators.minLength(8),Validators.maxLength(15), Validators.pattern(/^\d+$/)]],
-      email: ['', [Validators.required, Validators.email]],
+      mobile: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15), Validators.pattern(/^\d+$/)]],
       Upload: [''],
       gender: [''],
-      Password: ['', Validators.required]
+      Password: ['', Validators.required],
+      emails: this.fb.array([
+        this.fb.control('', [Validators.required, Validators.email])
+      ])
     });
 
     this.collegedetails = this.fb.group({
       collegename: ['', Validators.required],
       collegestate: ['', Validators.required],
       collegeId: ['', Validators.required],
-      CGPA: ['', [Validators.required,Validators.min(0),Validators.max(10),Validators.pattern(/^[0-9]+(\.[0-9]{1,2})?$/)]]
+      CGPA: ['', [Validators.required, Validators.min(0), Validators.max(10), Validators.pattern(/^[0-9]+(\.[0-9]{1,2})?$/)]]
     });
 
     this.skills = this.fb.group({
@@ -46,18 +50,43 @@ export class Loginform implements OnInit {
       experience: ['', Validators.required],
       project: [''],
       certifications: [''],
-      preferredrole: ['', Validators.required]
+      preferredrole: ['', Validators.required],
+      addresses: this.fb.array([
+        this.fb.control('', Validators.required)
+      ])
     });
+  }
+
+  get emails() {
+    return this.loginform.get('emails') as FormArray;
+  }
+
+  get addresses() {
+    return this.skills.get('addresses') as FormArray;
+  }
+
+  addEmail() {
+    this.emails.push(this.fb.control('', [Validators.required, Validators.email]));
+  }
+
+  removeEmail(i: number) {
+    this.emails.removeAt(i);
+  }
+
+  addAddress() {
+    this.addresses.push(this.fb.control('', Validators.required));
+  }
+
+  removeAddress(i: number) {
+    this.addresses.removeAt(i);
   }
 
   nextstep() {
     if (this.currentstep === 1) {
       this.loginform.markAllAsTouched();
-      // if (this.loginform.invalid) return;
     }
     if (this.currentstep === 2) {
       this.collegedetails.markAllAsTouched();
-      // if (this.collegedetails.invalid) return;
     }
     if (this.currentstep < 3) {
       this.currentstep++;
@@ -86,6 +115,11 @@ export class Loginform implements OnInit {
   }
 
   submit() {
+    const confirmSave = confirm("Are you sure you want to save?");
+    if (!confirmSave) {
+      return;
+    }
+
     if (this.loginform.valid && this.collegedetails.valid && this.skills.valid) {
       const finalData = {
         user: this.loginform.value,
@@ -104,12 +138,10 @@ export class Loginform implements OnInit {
         this.isLoggedIn = true;
         alert("Login Successful");
       } else {
-        users.push(finalData);
-        localStorage.setItem('users', JSON.stringify(users));
-
-        this.userService.register(finalData);
+        //users.push(finalData);
+        //localStorage.setItem('users', JSON.stringify(users));
+        this.userService.addUser(finalData);
         this.isLoggedIn = true;
-
         alert("Registration Successful");
       }
 
